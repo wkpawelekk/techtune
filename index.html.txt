@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechTune - Sklep & Usługi</title>
+    <!-- FontAwesome - Ikony -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-color: #0b1325;
+            --card-bg: #14223d;
+            --accent-color: #00a8ff;
+            --accent-hover: #0082c8;
+            --text-color: #e6f1ff;
+            --text-muted: #88a2c3;
+            --sale-color: #ff3838;
+            --border-radius: 12px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        nav {
+            background-color: rgba(20, 34, 61, 0.95);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--accent-color);
+            box-shadow: 0 4px 20px rgba(0, 168, 255, 0.15);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--accent-color);
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            margin: 3rem 0 1.5rem 0;
+            color: var(--text-color);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: var(--accent-color);
+            margin: 0.5rem auto 0 auto;
+            border-radius: 2px;
+            box-shadow: 0 0 10px var(--accent-color);
+        }
+
+        .owner-card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            max-width: 650px;
+            margin: 0 auto 3rem auto;
+            border: 1px solid rgba(0, 168, 255, 0.2);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .owner-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--accent-color);
+            box-shadow: 0 0 15px rgba(0, 168, 255, 0.4);
+        }
+
+        .owner-info h3 {
+            font-size: 1.8rem;
+            margin-bottom: 0.3rem;
+            color: #ffffff;
+        }
+
+        .owner-badge {
+            background-color: var(--accent-color);
+            color: #0b1325;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 0.8rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 1.8rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid rgba(0, 168, 255, 0.15);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 168, 255, 0.25);
+            border-color: var(--accent-color);
+        }
+
+        .card.featured {
+            border: 2px solid var(--accent-color);
+            box-shadow: 0 0 20px rgba(0, 168, 255, 0.2);
+        }
+
+        .sale-tag {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: var(--sale-color);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.8rem;
+            color: var(--accent-color);
+        }
+
+        .price-box {
+            margin: 1.2rem 0;
+            font-size: 1.6rem;
+            font-weight: bold;
+        }
+
+        .new-price {
+            color: #00ff88;
+        }
+
+        .btn {
+            background: var(--accent-color);
+            color: #0b1325;
+            border: none;
+            padding: 0.9rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+            transition: all 0.3s;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            background: #ffffff;
+            color: #0b1325;
+            box-shadow: 0 0 15px rgba(255,255,255,0.4);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(6px);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+            box-shadow: 0 15px 35px rgba(0, 168, 255, 0.3);
+            border: 1px solid var(--accent-color);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: var(--text-muted);
+        }
+
+        .close-btn:hover {
+            color: #fff;
+        }
+
+        .payment-methods {
+            display: flex;
+            gap: 1rem;
+            margin: 1.5rem 0;
+            font-size: 1.1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .payment-badge {
+            background: rgba(0, 168, 255, 0.1);
+            border: 1px solid var(--accent-color);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .discord-notice {
+            background: rgba(88, 101, 242, 0.15);
+            border: 1px solid #5865F2;
+            padding: 1.2rem;
+            border-radius: 10px;
+            margin-top: 1.5rem;
+            text-align: center;
+        }
+
+        .discord-btn {
+            background: #5865F2;
+            color: white;
+            margin-top: 1rem;
+        }
+
+        .discord-btn:hover {
+            background: #4752c4;
+            color: white;
+        }
+
+        .accordion-item {
+            background: var(--card-bg);
+            margin-bottom: 1rem;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid rgba(0, 168, 255, 0.1);
+        }
+
+        .accordion-header {
+            padding: 1.2rem;
+            background: rgba(255, 255, 255, 0.02);
+            cursor: pointer;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .accordion-content {
+            padding: 1.2rem;
+            display: none;
+            color: var(--text-muted);
+            border-top: 1px solid rgba(0, 168, 255, 0.1);
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-muted);
+            border-top: 1px solid rgba(0, 168, 255, 0.1);
+            margin-top: 4rem;
+        }
+
+        @media (max-width: 600px) {
+            .owner-card {
+                flex-direction: column;
+                text-align: center;
+            }
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo"><i class="fa-solid fa-bolt"></i> TechTune</div>
+        <ul class="nav-links">
+            <li><a href="#pakiety">Pakiety</a></li>
+            <li><a href="#regulamin">Regulamin</a></li>
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="#wlasciciel">Właściciel</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+
+        <h2 class="section-title" id="wlasciciel">Właściciel Projektu</h2>
+        <div class="owner-card">
+            <img src="avatar.jpg" alt="Zdjęcie Właściciela" class="owner-img" id="owner-img">
+            <div class="owner-info">
+                <span class="owner-badge">WŁAŚCICIEL / OWNER</span>
+                <h3 id="owner-nick">Bayonet780</h3>
+                <p style="color: var(--text-muted);">Zarządzam projektem TechTune. Masz pytania? Zapraszam na naszego Discorda!</p>
+            </div>
+        </div>
+
+        <h2 class="section-title" id="pakiety">Pakiety & Usługi</h2>
+        <div class="grid">
+            
+            <!-- Pakiet Basic -->
+            <div class="card">
+                <h3>Pakiet Basic</h3>
+                <p style="color: var(--text-muted);">Podstawowa optymalizacja systemu, usunięcie niepotrzebnych procesów i poprawa płynności.</p>
+                <div class="price-box">
+                    <span class="new-price">20.00 PLN</span>
+                </div>
+                <button class="btn" onclick="openModal('Pakiet Basic', '20.00 PLN')">Zamów Pakiet</button>
+            </div>
+
+            <!-- Pakiet Mid -->
+            <div class="card">
+                <h3>Pakiet Mid</h3>
+                <p style="color: var(--text-muted);">Średniozaawansowana optymalizacja pod gry, tweak systemu oraz redukcja input laga.</p>
+                <div class="price-box">
+                    <span class="new-price">35.00 PLN</span>
+                </div>
+                <button class="btn" onclick="openModal('Pakiet Mid', '35.00 PLN')">Zamów Pakiet</button>
+            </div>
+
+            <!-- Pakiet Pro -->
+            <div class="card">
+                <h3>Pakiet Pro</h3>
+                <p style="color: var(--text-muted);">Zaawansowany tuning Windowsa, maksymalny FPS, pełny tweak rejestru i sterowników.</p>
+                <div class="price-box">
+                    <span class="new-price">45.00 PLN</span>
+                </div>
+                <button class="btn" onclick="openModal('Pakiet Pro', '45.00 PLN')">Zamów Pakiet</button>
+            </div>
+
+            <!-- Pakiet Pro+ -->
+            <div class="card featured">
+                <span class="sale-tag">BESTSELLER</span>
+                <h3>Pakiet Pro+</h3>
+                <p style="color: var(--text-muted);">Pełna, maksymalna optymalizacja PC + <strong>Custom BIOS dostosowany pod najniższy input lag i max FPS</strong>.</p>
+                <div class="price-box">
+                    <span class="new-price">60.00 PLN</span>
+                </div>
+                <button class="btn" onclick="openModal('Pakiet Pro+ (z Custom BIOS)', '60.00 PLN')">Zamów Pakiet</button>
+            </div>
+
+        </div>
+
+        <h2 class="section-title" id="regulamin">Regulamin TechTune</h2>
+        <div style="background: var(--card-bg); padding: 1.8rem; border-radius: var(--border-radius); border: 1px solid rgba(0, 168, 255, 0.1);">
+            <ol style="margin-left: 1.5rem; color: var(--text-muted); display: flex; flex-direction: column; gap: 0.8rem;">
+                <li>Wszelkie zakupy usług i pakietów TechTune są dobrowolne.</li>
+                <li>Płatności realizowane są wyłącznie poprzez oficjalne zgłoszenie (ticket) na serwerze Discord.</li>
+                <li>Ze względu na cyfrowy charakter usług, po zrealizowaniu zamówienia zwroty nie są przyjmowane.</li>
+                <li>Zabrania się próby oszustwa oraz podszywania się pod administrację TechTune.</li>
+            </ol>
+        </div>
+
+        <h2 class="section-title" id="faq">Często Zadawane Pytania (FAQ)</h2>
+        <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleFaq(this)">
+                <span>Jak dokonać zakupu pakietu w TechTune?</span> <i class="fa-solid fa-chevron-down"></i>
+            </div>
+            <div class="accordion-content">
+                Wybierz pakiet na stronie, kliknij "Zamów Pakiet", przejdź na nasz serwer Discord i utwórz ticket w sekcji zakupu.
+            </div>
+        </div>
+        <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleFaq(this)">
+                <span>Jakie formy płatności są dostępne?</span> <i class="fa-solid fa-chevron-down"></i>
+            </div>
+            <div class="accordion-content">
+                Obsługujemy: BLIK, PaySafeCard (PSC), PayPal oraz tradycyjny Przelew bankowy.
+            </div>
+        </div>
+        <div class="accordion-item">
+            <div class="accordion-header" onclick="toggleFaq(this)">
+                <span>Co daje Custom BIOS w pakiecie Pro+?</span> <i class="fa-solid fa-chevron-down"></i>
+            </div>
+            <div class="accordion-content">
+                Custom BIOS to specjalnie zmodyfikowane i zoptymalizowane ustawienia płyty głównej, które pozwalają wycisnąć maksymalną wydajność procesora i pamięci RAM oraz znacząco obniżyć input lag.
+            </div>
+        </div>
+
+    </div>
+
+    <div class="modal" id="paymentModal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <h3 id="modalTitle" style="color: var(--accent-color);">Zamówienie</h3>
+            <p id="modalPrice" style="color: #00ff88; font-weight: bold; font-size: 1.3rem; margin-top: 0.5rem;"></p>
+            
+            <h4 style="margin-top: 1.5rem; text-align: center;">Dostępne Metody Płatności:</h4>
+            <div class="payment-methods">
+                <div class="payment-badge"><i class="fa-solid fa-mobile-screen"></i> BLIK</div>
+                <div class="payment-badge"><i class="fa-brands fa-paypal"></i> PayPal</div>
+                <div class="payment-badge"><i class="fa-solid fa-shield-halved"></i> PSC</div>
+                <div class="payment-badge"><i class="fa-solid fa-building-columns"></i> Przelew</div>
+            </div>
+
+            <div class="discord-notice">
+                <p style="font-weight: 600;">Aby dokonać zakupu pakietu, stwórz ticket na naszym Discordzie!</p>
+                <a href="https://discord.gg/PDy2XXg53Q" target="_blank" class="btn discord-btn">
+                    <i class="fa-brands fa-discord"></i> Otwórz Discord & Stwórz Ticket
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 TechTune. Wszelkie prawa zastrzeżone.</p>
+    </footer>
+
+    <script>
+        function openModal(packageName, price) {
+            document.getElementById('modalTitle').innerText = "Zamawiasz: " + packageName;
+            document.getElementById('modalPrice').innerText = "Cena: " + price;
+            document.getElementById('paymentModal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('paymentModal').style.display = 'none';
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('paymentModal');
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        function toggleFaq(element) {
+            const content = element.nextElementSibling;
+            const isVisible = content.style.display === 'block';
+            document.querySelectorAll('.accordion-content').forEach(item => item.style.display = 'none');
+            if (!isVisible) {
+                content.style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>
